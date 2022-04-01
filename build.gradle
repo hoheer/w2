@@ -33,4 +33,10 @@ dependencies {
     annotationProcessor('org.projectlombok:lombok:1.18.20')
     testImplementation('org.projectlombok:lombok:1.18.20')
     testAnnotationProcessor('org.projectlombok:lombok:1.18.20')
+
+    //jpa
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+
+    //h2
+    implementation('com.h2database:h2')
 }

@@ -8,8 +8,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.w2.hct.web.T_Controller;
@@ -24,10 +26,22 @@ public class T_ControllerTest {
     @Test
     public void ret_t () throws Exception {
         String tst = "test";
-
         mvc.perform(get("/test"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(tst));
+    }
+
+    @Test
+    public void ret_dto () throws Exception {
+        String name = "test";
+        int amount = 1000;
+        mvc.perform(
+                get("/test/dto")
+                        .param("name", name)
+                        .param("amount", String.valueOf(amount)))
+                        .andExpect(status().isOk())
+                        .andExpect(jsonPath("$.name", is(name)))
+                        .andExpect(jsonPath("$.amount", is(amount)));
 
     }
 

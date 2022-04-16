@@ -15,7 +15,7 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-group 'com.hct.w2'
+group 'com.ws.lsy'
 version '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
 
@@ -42,4 +42,7 @@ dependencies {
 
     //mustache
     implementation('org.springframework.boot:spring-boot-starter-mustache')
+
+    //security
+    implementation('org.springframework.boot:spring-boot-starter-oauth2-client')
 }

@@ -13,6 +13,11 @@ var main = {
         $('#btn-delete').on('click', function () {
             _this.delete();
         });
+
+        $('#btn-regist').on('click', function () {
+            _this.check_email();
+            _this.regist();
+        });
     },
     save : function () {
         var data = {
@@ -28,7 +33,7 @@ var main = {
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
-            alert('등록되었습니다');
+            alert('reg succ');
             window.location.href = '/';
         }).fail(function (error) {
             alert(error);
@@ -36,6 +41,7 @@ var main = {
      },
 
        update : function () {
+
             var data = {
                 title: $('#title').val(),
                 content: $('#content').val()
@@ -71,7 +77,37 @@ var main = {
             }).fail(function (error) {
                 alert(JSON.stringify(error));
             });
-       }
+       },
+      regist : function () {
+
+        var data = {
+            name: $('#name').val(),
+            password: $('#password').val(),
+            role: $('#role').val(),
+            email: $('#email').val()
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/api/member/regist',
+            dataType: 'json',
+            contentType:'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function() {
+            alert('가입 성공');
+            window.location.href = '/';
+        }).fail(function (error) {
+            alert(error);
+        });
+     },
+
+    check_email : function () {
+        var password = $('#password').val()
+        var pw_reg = /^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,16}$/
+        if (!pw_reg.test(password)) {
+            alert("비밀번호는 8~16자리, 알파벳, 숫자, 특수기호를 반드시 포함해야 합니다");
+        }
+     }
+
 };
 
 main.init();
